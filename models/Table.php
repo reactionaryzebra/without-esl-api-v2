@@ -7,11 +7,13 @@ class Table{
 
   public $season;
   public $excluded_teams;
+  public $excluded_teams_lookup;
   public $teams = [];
 
   public function __construct($db, $season, $excluded_teams) {
     $this->season = $season;
     $this->excluded_teams = $excluded_teams;
+    $this->excluded_teams_lookup = array_flip($excluded_teams);
     $this->conn = $db;
   }
 
@@ -24,7 +26,7 @@ class Table{
     $all_teams = array();
     foreach ($results as $result) {
       $team = $result['home_team'];
-      if (!in_array($team, $this->excluded_teams)){
+      if (is_null($this->excluded_teams_lookup[$team])){
         $all_teams[$team] = new Team($team);
       }
     }
@@ -35,7 +37,7 @@ class Table{
     foreach ($results as $result) {
       $home_team = $result['home_team'];
       $away_team = $result['away_team'];
-      if (in_array($home_team, $this->excluded_teams) || in_array($away_team, $this->excluded_teams)) {
+      if (!is_null($this->excluded_teams_lookup[$home_team]) || !is_null($this->excluded_teams_lookup[$away_team])) {
         continue;
       }
       $this->teams[$home_team]->addResult($result);
