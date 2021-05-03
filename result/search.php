@@ -15,7 +15,7 @@ $db = $database->getConnection();
 
 //Convert params and declare as variables
 $params = json_decode(file_get_contents('php://input'), TRUE);
-echo $params;
+echo json_encode($params);
 $season = $params['season'];
 $excluded_teams = $params['excludedTeams'];
 
