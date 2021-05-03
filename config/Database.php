@@ -4,7 +4,7 @@ class Database{
 
     // get the database connection
     public function getConnection(){
-        $this->conn = pg_connect("host=localhost port=5432 dbname=match_results");
+        $this->conn = pg_connect(getenv("DATABASE_URL"));
 
         return $this->conn;
     }
