@@ -5,7 +5,7 @@ header("Access-Control-Allow-Methods: POST");
 header("Content-Type: application/json; charset=UTF-8");
 
 include_once '../config/Database.php';
-include_once '../models/result.php';
+include_once '../models/Result.php';
 include_once '../models/Team.php';
 include_once '../models/Table.php';
 
